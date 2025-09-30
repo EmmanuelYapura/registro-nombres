@@ -1,0 +1,45 @@
+<script setup>
+import { ref } from 'vue'
+const email = ref("")
+const loginEmail = ref("")
+const password = ref("")
+const loginPassword = ref("")
+
+</script>
+
+<template>
+  <div class="registro">
+    <h2>Registro</h2>
+    <input v-model="email" type="email" placeholder="Email">
+    <input v-model="password" type="password" placeholder="Password">
+    <button @click="handleRegister">Registrarse</button>
+  </div>
+  <div class="login">
+    <h2>Login</h2>
+    <input v-model="loginEmail" type="email" placeholder="Email">
+    <input v-model="loginPassword" type="password" placeholder="Password">
+    <button @click="handleLogin">Iniciar Sesión</button>
+  </div>
+  <!-- esto va en otro contenedor -->
+  <button @click="logout">Cerrar sesión</button>
+</template>
+
+<style scoped>
+.registro, .login{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 4rem; 
+}
+
+h2{
+  margin: 0;
+}
+
+input, button{
+  padding: 0.3rem;
+  border-radius: 5px;
+  padding-left: 0.5rem;
+}
+
+</style>
