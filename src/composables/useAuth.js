@@ -18,13 +18,13 @@ async function register(email, password) {
     await createUserWithEmailAndPassword(auth, email, password);
   } catch(error){
     if(error.code == 'auth/email-already-in-use'){
-      console.warn("Ese email ya esta en uso!")
+      return "Ese email ya esta en uso!" 
     } else if (error.code == 'auth/invalid-email'){
-      console.warn("Ese email no es valido!")
+      return "Ese email no es valido!" 
     } else if (error.code == 'auth/weak-password'){
-      console.warn("La contrasena debe tener minimo 6 caracteres")
+      return "La contrasena debe tener minimo 6 caracteres"
     } else {
-      console.error("Error desconocido", error)
+      return "Error desconocido"
     }
   }
 }
@@ -34,14 +34,13 @@ async function login(email, password) {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
     if (error.code == 'auth/invalid-email'){
-      console.log("El correo ingresado es invalido")
+      return 'El correo ingresado es invalido';
     } else{
-      console.log("Las credenciales son incorrectas")
+      return 'Las credenciales son incorrectas';
     }
   }
 }
 
-/* Esto no necesita mucha validacion ya que solo aparecera cuando un user este logeado */
 async function logout() {
   await signOut(auth);
 }
