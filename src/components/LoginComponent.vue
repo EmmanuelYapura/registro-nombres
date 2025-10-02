@@ -13,12 +13,14 @@
         <h2>Registro</h2>
         <input v-model="email" @keyup.enter="handleRegister" type="email" placeholder="Email" />
         <input v-model="password" @keyup.enter="handleRegister" type="password" placeholder="Password" />
+        <p v-if="registerError" class="error-msg"> {{ registerError }}</p>
         <button @click="handleRegister">Registrarse</button>
       </div>
       <div class="login">
         <h2>Login</h2>
         <input v-model="loginEmail" @keyup.enter="handleLogin" type="email" placeholder="Email" />
         <input v-model="loginPassword" @keyup.enter="handleLogin" type="password" placeholder="Password" />
+        <p v-if="loginError" class="error-msg"> {{ loginError }}</p>
         <button @click="handleLogin">Iniciar Sesión</button>
       </div>
     </div>
@@ -38,13 +40,29 @@ const password = ref("");
 const loginEmail = ref("");
 const loginPassword = ref("");
 
+const registerError = ref("");
+const loginError = ref("");
+
 async function handleRegister() {
-  register(email.value, password.value)
+  registerError.value = ""
+  const error = await register(email.value, password.value)
+  if(error){
+    registerError.value = error;
+  } else{ 
+    email.value = "";
+    password.value = "";
+  }
 }
 
 async function handleLogin() {
-  login(loginEmail.value, loginPassword.value)
-
+  loginError.value = '';
+  const error = await login(loginEmail.value, loginPassword.value);
+  if (error){
+    loginError.value = error;
+  } else {
+    loginEmail.value = "";
+    loginPassword.value = "";
+  }
 }
 
 watch(
@@ -140,4 +158,15 @@ button:hover {
   width: 120px;
   opacity: 0.9;
 }
+
+.error-msg {
+  color: #b00020;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  font-weight: bold;
+  border: 1px solid red;
+  border-radius: 5px;
+  padding: 0.5rem 0;
+}
+
 </style>
