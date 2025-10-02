@@ -1,35 +1,71 @@
-# .
+# 📌 Proyecto SPA con Vue.js
 
-This template should help get you started developing with Vue 3 in Vite.
+Este proyecto es una **Single Page Application (SPA)** desarrollada con **Vue.js**, que incluye un sistema de autenticación (login/registro) y una sección protegida accesible solo para usuarios autenticados.
 
-## Recommended IDE Setup
+---
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 🚀 Tecnologías utilizadas
+- [Vue.js 3](https://vuejs.org/) - Framework principal
+- [Vue Router](https://router.vuejs.org/) - Manejo de rutas y protección de vistas
+- [Firebase Authentication](https://firebase.google.com/docs/auth) - Autenticación de usuarios
+- [Netlify](https://www.netlify.com/) - Deploy y hosting del proyecto
 
-## Customize configuration
+---
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+## 📂 Estructura del proyecto
+```bash
+src/
+ ├── assets/         # Imágenes y recursos estáticos
+ ├── components/     # Componentes reutilizables (LoginComponent, ListMain, etc.)
+ ├── composables/    # Funciones reutilizables (useAuth)
+ ├── router.js       # Configuración de rutas y protección con meta
+ ├── App.vue         # Componente raíz
+ └── main.js         # Punto de entrada de la app
 ```
 
-### Compile and Hot-Reload for Development
+---
 
-```sh
-npm run dev
-```
+## ⚙️ Funcionalidades
+- ✅ Registro y login de usuarios con Firebase  
+- ✅ Rutas protegidas (solo accesibles si el usuario está autenticado)  
+- ✅ Redirección automática al login si el usuario no está logueado  
+- ✅ SPA con navegación fluida sin recargar la página  
+- ✅ Deploy automático en Netlify  
 
-### Compile and Minify for Production
+---
 
-```sh
-npm run build
-```
+## ▶️ Instalación y ejecución local
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/usuario/nombre-del-proyecto.git nombre-del-proyecto
+   cd nombre-del-proyecto
+   ```
 
-### Lint with [ESLint](https://eslint.org/)
+2. Instalar dependencias:
+   ```bash
+   npm install
+   ```
 
-```sh
-npm run lint
-```
+3. Ejecutar en desarrollo:
+   ```bash
+   npm run dev
+   ```
+
+4. Abrir en el navegador:
+   ```
+   http://localhost:5173/
+   ```
+   
+---
+
+## 🌍 Deploy
+El proyecto está desplegado en **Netlify**.  
+Podés acceder en: [🔗 Demo en vivo](https://registro-nombres.netlify.app/)
+
+---
+
+## 👨‍💻 Autor
+- Nombre: **Emmanuel Yapura**
+- LinkedIn: [Emmanuel Yapura](https://www.linkedin.com/in/emmanuelyapura/)
+
+---
