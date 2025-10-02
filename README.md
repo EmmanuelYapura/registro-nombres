@@ -66,6 +66,6 @@ Podés acceder en: [🔗 Demo en vivo](https://registro-nombres.netlify.app/)
 
 ## 👨‍💻 Autor
 - Nombre: **Emmanuel Yapura**
-- LinkedIn: [Emmanuel Yapura]([https://linkedin.com/in/tuusuario](https://www.linkedin.com/in/emmanuelyapura/))
+- LinkedIn: [Emmanuel Yapura](https://www.linkedin.com/in/emmanuelyapura/)
 
 ---
