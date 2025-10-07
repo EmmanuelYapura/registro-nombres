@@ -66,8 +66,6 @@ Podés acceder en: [🔗 Demo en vivo](https://registro-nombres.netlify.app/)
 ---
 
 ## ⏰ Funciones en desarrollo 
-- Editar un nombre desde el listado 
-- Borrar un nombre desde el listado
 - Modo para niños
 
 ---
