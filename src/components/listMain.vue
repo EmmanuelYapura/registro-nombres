@@ -6,14 +6,32 @@
       <button @click="handleLogout" class="btn-sub">Cerrar</button>
   <h2>Nombres</h2>
   <ul>
-      <li v-for="nombre in nombres" :key="nombre"> {{ nombre }} <img src="/src/assets/bebe.png" class="icon-img" alt="icon" width="40" height="35"></li>
+    <li v-for="nombre in nombres" :key="nombre.id">
+      <template v-if="editandoId === nombre.id">
+        <input v-model="nombreEditado" @keyup.enter="guardarEdicion(nombre.id)" />
+        <div class="div-options">
+          <button class="btn-option" @click="guardarEdicion(nombre.id)">✔️</button>
+          <button class="btn-option" @click="cancelarEdicion" >❌</button>
+        </div>
+      </template>
+      <template v-else>
+        <div class="div-name">
+          {{ nombre.nombre }}
+          <img src="/src/assets/bebe.png" class="icon-img" alt="icon" width="40" height="35">
+        </div>
+        <div class="div-options">
+          <button class="btn-option" @click="editarNombre(nombre)" >✏️</button>
+          <button class="btn-option" @click="eliminarNombre(nombre.id)" >🗑️</button>
+        </div>
+      </template>
+    </li>
   </ul>
 </template>
 
 <script setup>
 import { ref, watch } from 'vue';
 import { db } from '../firebase';
-import { collection, addDoc, getDocs }  from 'firebase/firestore';
+import { collection, doc, addDoc, getDocs, deleteDoc, updateDoc }  from 'firebase/firestore';
 import { useAuth } from '@/composables/useAuth';
 import { useRouter } from "vue-router";
 
@@ -22,6 +40,9 @@ const router = useRouter();
 const nuevoNombre = ref("")
 const nombres = ref([])
 const { user, logout } = useAuth()
+
+const editandoId = ref(null);
+const nombreEditado = ref("");
 
 async function handleLogout() {
   await logout();
@@ -40,8 +61,41 @@ async function agregarNombre(){
 
 async function cargarNombres(uid){
   const querySnap = await getDocs(collection(db, "users", uid, "nombres"));
-  const nombres_ordenados = querySnap.docs.map(doc => doc.data().nombre) 
-  nombres.value = nombres_ordenados.sort()
+  const nombres_ordenados = querySnap.docs.map(doc => ({
+    id : doc.id,
+    nombre: doc.data().nombre
+  })) 
+  nombres.value = nombres_ordenados.sort((a, b) => a.nombre.localeCompare(b.nombre));
+}
+
+// Editar un nombre
+function editarNombre(nombre) {
+  editandoId.value = nombre.id;
+  nombreEditado.value = nombre.nombre;
+}
+
+async function guardarEdicion(id) {
+  if (nombreEditado.value.trim() !== "" && user.value) {
+    const docRef = doc(db, "users", user.value.uid, "nombres", id);
+    await updateDoc(docRef, { nombre: nombreEditado.value });
+    editandoId.value = null;
+    nombreEditado.value = "";
+    await cargarNombres(user.value.uid);
+  }
+}
+
+function cancelarEdicion() {
+  editandoId.value = null;
+  nombreEditado.value = "";
+}
+
+// Eliminar un nombre
+async function eliminarNombre(id) {
+  if (confirm("¿Seguro que deseas eliminar este nombre?")) {
+    const docRef = doc(db, "users", user.value.uid, "nombres", id);
+    await deleteDoc(docRef);
+    await cargarNombres(user.value.uid);
+  }
 }
 
 watch(() => user.value,
@@ -64,6 +118,7 @@ watch(() => user.value,
 
 .icon-img{
   margin: 0;
+  padding-left: 1rem;
 }
 
 h1 {
@@ -82,6 +137,18 @@ input {
 
 input::placeholder{
   font-size: 1.15em;
+}
+
+.div-options{
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-option{
+  background-color: transparent;
+  border: none;
+  margin: 0.1em 0;
+  cursor: pointer;
 }
 
 .btn-sub{
@@ -125,6 +192,11 @@ li {
   width: 120px;
   font-weight: bold;
   flex: 1 1 calc(45% - 10px);
+}
+
+.div-name{
+  display: flex;
+  align-items: center;
 }
 
 @media (max-width: 480px) {
