@@ -1,7 +1,7 @@
 # 📌 Proyecto SPA con Vue.js
 
 Este proyecto es una **Single Page Application (SPA)** desarrollada con **Vue.js**, que incluye un sistema de autenticación (login/registro) y una sección protegida accesible solo para usuarios autenticados.
-En esta app podras almacenar nombres en una base de datos **Firebase**, la tematica principal es para niñas. 
+En esta app podras almacenar, editar y eliminar nombres en una base de datos **Firebase**, la tematica principal es para niñas. 
 
 ---
 
